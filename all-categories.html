@@ -1,46 +1,394 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="lo">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>All Categories-Expense Tracker</title>
+    <title>ທຸກປະເພດ - ການຈັດການຄ່າໃຊ້ຈ່າຍ</title>
     <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="./css/style.css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link rel="stylesheet" href="./css/animate.css" />
-    <link rel="stylesheet" href="./css/responsive.css" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="./images/favicon.png"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <link
       rel="stylesheet"
-      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-      crossorigin="anonymous"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     />
+    <style>
+      /* General Body Styles */
+      body {
+        font-family: "Noto Sans Lao", sans-serif; /* Using a Lao-friendly font */
+        margin: 0;
+        padding: 0;
+        background: #dff7f3;
+        background: linear-gradient(
+          90deg,
+          rgba(223, 247, 243, 1) 0%,
+          rgb(200, 250, 211) 42%,
+          rgb(255, 214, 241) 56%
+        );
+        color: #333;
+        line-height: 1.6;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* Ensure body takes full viewport height */
+      }
+
+      /* Header Styles */
+      header {
+        background: #dff7f3;
+        background: linear-gradient(
+          90deg,
+          rgba(223, 247, 243, 1) 0%,
+          rgb(200, 250, 211) 42%,
+          rgb(255, 214, 241) 56%
+        );
+        color: #ecf0f1; /* Light text color */
+        padding: 1rem 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      #navigation-bar-own {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      nav a {
+        color: #ecf0f1;
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      nav a span {
+        color: #1abc9c; /* Teal accent for "ຄ່າໃຊ້ຈ່າຍສ່ວນຕົວ." */
+      }
+
+      nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+      }
+
+      nav ul li {
+        margin-left: 20px;
+      }
+
+      nav ul li a {
+        color: #ecf0f1;
+        text-decoration: none;
+        font-size: 1rem;
+        padding: 5px 10px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+      }
+
+      nav ul li a:hover {
+        background-color: #34495e; /* Slightly darker on hover */
+      }
+
+      /* Hamburger button for small screens (placeholder for now, not styled for full functionality here) */
+      nav button {
+        display: none; /* Hidden by default, show on small screens */
+        background: none;
+        border: none;
+        color: #ecf0f1;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      /* Main Content Area */
+      main {
+        flex-grow: 1; /* Allows main content to take available space */
+        padding: 40px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start; /* Align content to the top */
+      }
+
+      #all-categories-details {
+        background: #dff7f3;
+        background: linear-gradient(
+          90deg,
+          rgba(223, 247, 243, 1) 0%,
+          rgb(200, 250, 211) 42%,
+          rgb(255, 214, 241) 56%
+        );
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        max-width: 600px;
+        width: 100%;
+        box-sizing: border-box; /* Include padding in element's total width and height */
+      }
+
+      #backto-btn {
+        display: inline-block; /* Changed from block to inline-block */
+        background-color: #1f8ad2; /* Blue for back button */
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-bottom: 20px;
+        transition: background-color 0.3s ease;
+        text-decoration: none; /* In case it's a button styled as a link */
+        display: flex; /* To center the 'i' icon if it were visible */
+        align-items: center;
+        justify-content: center;
+      }
+
+      #backto-btn:hover {
+        background-color: #2980b9;
+      }
+
+      #all-categories-details h1 {
+        color: #2c3e50;
+        font-size: 2rem;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      #all-categories-details p {
+        color: #7f8c8d;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      #list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      #list li {
+        background: #dff7f3;
+        background: linear-gradient(
+          90deg,
+          rgba(223, 247, 243, 1) 0%,
+          rgb(200, 250, 211) 42%,
+          rgb(255, 214, 241) 56%
+        );
+        border: 5px solid #f293ff;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.1rem;
+        color: #444;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s ease;
+      }
+
+      #list li:hover {
+        transform: translateY(-2px);
+      }
+
+      /* Styles for the action buttons (edit and delete) */
+      .action-buttons {
+        display: flex;
+        gap: 10px; /* Space between buttons */
+      }
+
+      .action-buttons button {
+        border: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+
+      /* Style for the delete button */
+      .delete-btn {
+        background-color: #e74c3c; /* Red for delete */
+        color: white;
+      }
+
+      .delete-btn:hover {
+        background-color: #c0392b;
+        transform: scale(1.05);
+      }
+
+      /* Style for the edit button */
+      .edit-btn {
+        background-color: #f39c12; /* Orange for edit */
+        color: white;
+      }
+
+      .edit-btn:hover {
+        background-color: #e67e22;
+        transform: scale(1.05);
+      }
+
+      /* --- Modal Styles --- */
+      /* --- Modal Styles --- */
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1000; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0, 0, 0, 0.6); /* Black w/ opacity */
+        /* REMOVE THIS LINE: display: flex; */
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: auto; /* Centered */
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        width: 90%; /* Smaller width on small screens */
+        max-width: 400px; /* Max width for larger screens */
+        position: relative; /* Needed for close button positioning */
+        animation: fadeIn 0.3s ease-out; /* Simple fade-in animation */
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .close-button {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        cursor: pointer;
+      }
+
+      .close-button:hover,
+      .close-button:focus {
+        color: #333;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .modal-content h2 {
+        text-align: center;
+        color: #2c3e50;
+        margin-top: 0;
+        margin-bottom: 20px;
+      }
+
+      .modal-content input[type="text"] {
+        width: calc(100% - 20px); /* Adjust for padding */
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+        box-sizing: border-box; /* Include padding in width */
+      }
+
+      .modal-content .modal-buttons {
+        display: flex;
+        justify-content: space-around;
+        gap: 10px;
+      }
+
+      .modal-content .modal-buttons button {
+        flex: 1; /* Make buttons take equal width */
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+      }
+
+      #saveEditBtn {
+        background-color: #2ecc71; /* Green for save */
+        color: white;
+      }
+
+      #saveEditBtn:hover {
+        background-color: #27ae60;
+      }
+
+      #cancelEditBtn {
+        background-color: #95a5a6; /* Gray for cancel */
+        color: white;
+      }
+
+      #cancelEditBtn:hover {
+        background-color: #7f8c8d;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        nav {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        nav ul {
+          width: 100%;
+          flex-direction: column;
+          align-items: flex-start;
+          /* display: none; */ /* Will be controlled by JS for toggle */
+        }
+
+        nav button {
+          display: block; /* Show hamburger button */
+          align-self: flex-end; /* Align to the right in flex column */
+        }
+
+        #all-categories-details {
+          padding: 20px;
+        }
+
+        #all-categories-details h1 {
+          font-size: 1.8rem;
+        }
+
+        #list li {
+          font-size: 1rem;
+          padding: 12px;
+        }
+
+        .modal-content {
+          padding: 20px;
+        }
+
+        .modal-content input[type="text"] {
+          width: 100%;
+        }
+      }
+    </style>
   </head>
   <body>
     <header>
       <section id="navigation-bar-own">
-        <div class="container-fluid">
-          <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="#"
-              >Expense <span class="color-style">Manager.</span>
-            </a>
+        <div>
+          <nav>
+            <a href="#">ເວັບໃຊ້ຈັດການ<span>ຄ່າໃຊ້ຈ່າຍສ່ວນຕົວ.</span></a>
             <button
-              class="navbar-toggler"
               type="button"
               data-toggle="collapse"
               data-target="#navbarNav"
@@ -48,49 +396,48 @@
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <i class="fas fa-bars"></i>
+              <i></i>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                  <a class="nav-link" href="" onclick="logout(event)"
-                    >Log out &nbsp;<i class="fas fa-sign-out-alt"></i
-                  ></a>
+            <div id="navbarNav">
+              <ul>
+                <li>
+                  <a href="" onclick="logout(event)">Log out &nbsp;<i></i></a>
                 </li>
               </ul>
             </div>
           </nav>
         </div>
       </section>
-      <!-- Close-my-navigation-section -->
     </header>
     <main>
-      <div class="container">
-        <div class="row">
-          <div class="container"></div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
+      <div>
+        <div></div>
+        <div>
+          <div>
             <a href="./dashboard.html">
-              <button class="backto-btn">
-                <i class="fas fa-long-arrow-alt-left"></i></button
-            ></a>
+              <button id="backto-btn">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  fill="currentColor"
+                  class="bi bi-arrow-return-left"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"
+                  />
+                </svg>
 
-            <img
-              src="./images/all-category-img.png"
-              style="display: inline"
-              class="all-categories-details-img"
-              data-wow-duration="1s"
-              data-wow-delay="2s"
-              alt="add-image"
-              height="auto"
-              width="100%"
-            />
+                ກັບຄືນ
+              </button>
+            </a>
           </div>
-          <div class="col-md-6">
+          <div>
             <section id="all-categories-details">
-              <h1>ALL CATEGORIES</h1>
-              <p>Your all added categories</p>
+              <h1>ທຸກປະເພດ</h1>
+              <p>ປະເພດທັງໝົດທີ່ທ່ານເພີ່ມ</p>
               <ul id="list"></ul>
             </section>
           </div>
@@ -98,31 +445,25 @@
       </div>
     </main>
 
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
-    <!-- <script>
-    
-    setTimeout(onloading => {
-       
-        document.getElementById("loading-screen-bg").style.display="none";
-        
-    }, 2000);
-</script> -->
-    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+    <div id="editCategoryModal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>ແກ້ໄຂປະເພດ</h2>
+        <input
+          type="text"
+          id="editCategoryNameInput"
+          placeholder="ຊື່ປະເພດໃໝ່"
+        />
+        <div class="modal-buttons">
+          <button id="saveEditBtn">ບັນທຶກການປ່ຽນແປງ</button>
+          <button id="cancelEditBtn">ຍົກເລີກ</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
     <script src="js/wow.min.js"></script>
 
     <script>
@@ -130,22 +471,209 @@
     </script>
 
     <script>
-      // Your web app's Firebase configuration
-      var firebaseConfig = {
-        apiKey: "AIzaSyByQw_ywcQrp-h1Y5NAu6EHpx5-w9EvrtI",
-        authDomain: "expense-mng.firebaseapp.com",
-        projectId: "expense-mng",
-        storageBucket: "expense-mng.appspot.com",
-        messagingSenderId: "524680470133",
-        appId: "1:524680470133:web:0d4db1c304666c1daa623c",
-      };
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
+      function logout(event) {
+        event.preventDefault();
+        if (confirm("ທ່ານຕ້ອງການອອກຈາກລະບົບບໍ?")) {
+          if (typeof firebase !== "undefined" && firebase.auth) {
+            firebase
+              .auth()
+              .signOut()
+              .then(() => {
+                window.location.href = "index.html";
+              })
+              .catch((error) => {
+                console.error("Logout Error:", error);
+                alert("Logout failed: " + error.message);
+              });
+          } else {
+            window.location.href = "index.html"; // Fallback if firebase not loaded
+          }
+        }
+      }
     </script>
 
-    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
-    <script src="./js/allCategory-script.js"></script>
+
+    <script>
+      // Firebase config from your original snippet
+      var firebaseConfig = {
+        apiKey: "AIzaSyARaEo61U-dTZTYxb9r8JKO3ESwCQwPlIo",
+        authDomain: "learn-indonesian.firebaseapp.com",
+        projectId: "learn-indonesian",
+        storageBucket: "learn-indonesian.appspot.com",
+        messagingSenderId: "61342559557",
+        appId: "1:61342559557:web:dff4d03cef9fb5cf1b222c",
+      };
+      // Initialize Firebase if it's not already
+      if (typeof firebase !== "undefined" && !firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+    </script>
+
+    <script>
+      // Get modal elements
+      const editCategoryModal = document.getElementById("editCategoryModal");
+      const closeButton = document.querySelector(".close-button");
+      const editCategoryNameInput = document.getElementById(
+        "editCategoryNameInput"
+      );
+      const saveEditBtn = document.getElementById("saveEditBtn");
+      const cancelEditBtn = document.getElementById("cancelEditBtn");
+
+      let currentCategoryId = null; // To store the ID of the category being edited
+
+      // Function to open the modal
+      function openEditModal(categoryName, categoryId) {
+        editCategoryNameInput.value = categoryName;
+        currentCategoryId = categoryId;
+        editCategoryModal.style.display = "flex"; // Use flex to center
+      }
+
+      // Function to close the modal
+      function closeEditModal() {
+        editCategoryModal.style.display = "none";
+      }
+
+      // Event listeners for closing the modal
+      closeButton.addEventListener("click", closeEditModal);
+      cancelEditBtn.addEventListener("click", closeEditModal);
+
+      // Close modal if clicked outside modal-content
+      window.addEventListener("click", (event) => {
+        if (event.target == editCategoryModal) {
+          closeEditModal();
+        }
+      });
+
+      // Handle saving edited category
+      saveEditBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const newCategoryName = editCategoryNameInput.value.trim();
+
+        if (newCategoryName === "") {
+          alert("ກະລຸນາໃສ່ຊື່ປະເພດ."); // Please enter a category name.
+          return;
+        }
+
+        if (currentCategoryId) {
+          firebase
+            .firestore()
+            .collection("categories")
+            .doc(currentCategoryId)
+            .update({ categoryName: newCategoryName })
+            .then(() => {
+              console.log("Category updated successfully!");
+              closeEditModal();
+              window.location.reload(); // Reload to show updated list
+            })
+            .catch((error) => {
+              console.error("Error updating category:", error);
+              alert("ເກີດຂໍ້ຜິດພາດໃນການອັບເດດ: " + error.message); // Error updating.
+            });
+        }
+      });
+
+      // Function to handle user logout (kept as is)
+      var logout = (event) => {
+        event.preventDefault();
+
+        firebase
+          .auth()
+          .signOut()
+          .then((action) => {
+            console.log("Logout!");
+            window.location = "../index.html"; // Redirect to index.html after logout
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log(errorMessage);
+          });
+      };
+
+      // Check if a user is authenticated and populate categories
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          firebase
+            .firestore()
+            .collection("categories")
+            .get()
+            .then((querySnapshot) => {
+              var list = document.getElementById("list");
+              list.innerHTML = ""; // Clear existing list items
+
+              querySnapshot.forEach((doc) => {
+                if (doc.data().userID == user.uid) {
+                  var listElement = document.createElement("li");
+                  var categoryNameDisplay = document.createElement("span");
+                  categoryNameDisplay.textContent = doc.data().categoryName;
+                  listElement.appendChild(categoryNameDisplay);
+
+                  var buttonContainer = document.createElement("div");
+                  buttonContainer.classList.add("action-buttons");
+
+                  var editBtn = document.createElement("button");
+                  editBtn.classList.add("edit-btn");
+                  var editIcon = document.createElement("span");
+                  editIcon.classList.add("fas", "fa-edit");
+                  editBtn.appendChild(editIcon);
+                  editBtn.innerHTML += "&nbsp;ແກ້ໄຂ";
+                  buttonContainer.appendChild(editBtn);
+
+                  var deleteBtn = document.createElement("button");
+                  deleteBtn.classList.add("delete-btn");
+                  var deleteIcon = document.createElement("span");
+                  deleteIcon.classList.add("fas", "fa-trash-alt");
+                  deleteBtn.appendChild(deleteIcon);
+                  deleteBtn.innerHTML += "&nbsp;ລຶບ";
+                  buttonContainer.appendChild(deleteBtn);
+
+                  listElement.appendChild(buttonContainer);
+                  list.appendChild(listElement);
+
+                  // Add event listener to the edit button
+                  editBtn.addEventListener("click", () => {
+                    openEditModal(doc.data().categoryName, doc.id);
+                  });
+
+                  // Add event listener to the delete button
+                  deleteBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+
+                    if (
+                      confirm(
+                        "ທ່ານແນ່ໃຈບໍວ່າຕ້ອງການລຶບປະເພດນີ້: " +
+                          doc.data().categoryName +
+                          "?"
+                      )
+                    ) {
+                      firebase
+                        .firestore()
+                        .collection("categories")
+                        .doc(doc.id)
+                        .delete()
+                        .then(() => {
+                          console.log("Deleted!");
+                          window.location.reload();
+                        })
+                        .catch((error) => {
+                          console.log("Error deleting document:", error);
+                          alert("ເກີດຂໍ້ຜິດພາດໃນການລຶບ: " + error.message);
+                        });
+                    }
+                  });
+                }
+              });
+            })
+            .catch((error) => {
+              console.log("Error fetching categories:", error);
+            });
+        } else {
+          window.location = "../index.html";
+        }
+      });
+    </script>
   </body>
 </html>

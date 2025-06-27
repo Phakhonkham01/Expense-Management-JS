@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <script src="firebase-config.js"></script>
+
+    <script src="script.js" defer></script>
+    <style>
+      /* General Body and Font Styles */
+      body {
+        font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif; /* Modern, clean font stack */
+        margin: 0;
+        padding: 0;
+        background: #dff7f3;
+        background: linear-gradient(
+          90deg,
+          rgba(223, 247, 243, 1) 0%,
+          rgb(200, 250, 211) 42%,
+          rgb(255, 214, 241) 56%
+        );
+        color: #333; /* Darker text for readability */
+        line-height: 1.6;
+      }
+
+      /* --- Navigation Bar --- */
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #dff7f3;
+        background: linear-gradient(
+          90deg,
+          rgba(223, 247, 243, 1) 0%,
+          rgb(200, 250, 211) 42%,
+          rgb(255, 214, 241) 56%
+        );
+        color: white;
+        padding: 15px 30px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: sticky; /* Makes the nav stick to the top */
+        top: 0;
+        z-index: 1000; /* Ensures nav is above other content */
+      }
+
+      .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 15px; /* Space between title and email */
+      }
+
+      .nav-left strong {
+        font-size: 1.6rem;
+        font-weight: 700; /* Bolder for prominence */
+      }
+
+      .user-email {
+        font-size: 0.9rem;
+        opacity: 0.8; /* Slightly subdued */
+      }
+
+      .nav-right button {
+        background-color: #7986cb; /* Lighter shade of primary color */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.95rem;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        margin-left: 10px; /* Space between buttons */
+      }
+
+      .nav-right button:hover {
+        background-color: #5c6bc0; /* Darker on hover */
+        transform: translateY(-2px);
+      }
+
+      /* --- Modals (Expense Form & Analysis) --- */
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1001; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+        backdrop-filter: blur(5px); /* Subtle blur for background content */
+        display: flex; /* Use flexbox to center content */
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-content {
+        background-color: #ffffff;
+        margin: auto; /* Auto margin for centering */
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        position: relative;
+        width: 100%; /* Responsive width */
+        max-width: 1200px; /* Max width for larger screens */
+        animation: fadeIn 0.3s ease-out; /* Simple fade-in animation */
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .close {
+        color: #aaa;
+        position: absolute;
+        top: 15px;
+        right: 25px;
+        font-size: 28px;
+        font-weight: bold;
+        transition: color 0.3s ease;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: #333;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .modal-content h2 {
+        text-align: center;
+        color: #3f51b5;
+        margin-bottom: 25px;
+        font-size: 1.8rem;
+      }
+
+      /* --- Form Styles within Modal --- */
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #555;
+      }
+
+      .form-group input[type="text"],
+      .form-group input[type="number"],
+      .form-group input[type="date"],
+      .form-group select {
+        width: calc(100% - 22px); /* Account for padding and border */
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus {
+        border-color: #3f51b5;
+        box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.2); /* Focus glow */
+        outline: none;
+      }
+
+      /* --- Loading Indicator --- */
+      .loading-indicator {
+        display: none; /* Hidden by default */
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 6px solid #f3f3f3;
+        border-top: 6px solid #3f51b5;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        z-index: 2000;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* --- Expense Table --- */
+      #expense-table {
+        width: 95%; /* Slightly less than 100% to give some margin */
+        margin: 30px auto; /* Center the table and add vertical space */
+        border-collapse: collapse;
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border-radius: 8px;
+        overflow: hidden; /* Ensures rounded corners apply to content */
+      }
+
+      #expense-table thead {
+        background-color: #e0e0e0; /* Light gray header */
+        color: #555;
+      }
+
+      #expense-table th,
+      #expense-table td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+      }
+
+      #expense-table th {
+        font-weight: 700;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      #expense-table tbody tr:nth-child(even) {
+        background-color: #f9f9f9; /* Zebra striping for readability */
+      }
+
+      #expense-table tbody tr:hover {
+        background-color: #e8f5e9; /* Light green on hover for rows */
+        cursor: pointer; /* Indicates interactivity */
+      }
+
+      /* Action buttons in table */
+
+      /* --- Chart Container and Cards --- */
+      .chart-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+
+        gap: 30px;
+        width: 100%;
+        margin-top: 25px; /* Add some space above charts */
+      }
+
+      .chart-card {
+        background-color: #ffffff;
+        border-radius: 12px; /* More rounded corners */
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Stronger, softer shadow */
+        padding: 25px 30px; /* More padding */
+        flex: 1 1 400px;
+        max-width: 1000px; /* Slightly wider max-width */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      }
+
+      .chart-card:hover {
+        transform: translateY(-8px); /* More pronounced lift */
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Stronger hover shadow */
+      }
+
+      .chart-card h3 {
+        margin-top: 0;
+        margin-bottom: 25px; /* More space below title */
+        font-size: 1.4rem; /* Larger title */
+        color: #333;
+        text-align: center;
+        border-bottom: 2px solid #e0e0e0; /* Subtle separator */
+        padding-bottom: 10px;
+        width: 100%;
+      }
+
+      .chart {
+        max-width: 100%;
+        height: auto;
+        /* Chart.js handles canvas sizing well, just ensure parent is flexible */
+      }
+
+      /* --- Analysis Modal Specifics --- */
+      #total-expenses {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #28a745; /* Green for total expenses */
+        display: block; /* Make it a block element for better spacing */
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        nav {
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 15px 20px;
+        }
+
+        .nav-right {
+          margin-top: 15px;
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+
+        .modal-content {
+          padding: 20px;
+          width: 95%;
+        }
+
+        #expense-table {
+          width: 98%;
+          margin: 20px auto;
+          font-size: 0.9rem;
+        }
+
+        #expense-table th,
+        #expense-table td {
+          padding: 10px;
+        }
+
+        .chart-card {
+          flex: 1 1 100%; /* Charts take full width on smaller screens */
+          max-width: none;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .nav-left strong {
+          font-size: 1.4rem;
+        }
+
+        .user-email {
+          display: none; /* Hide email on very small screens to save space */
+        }
+
+        .modal-content h2 {
+          font-size: 1.5rem;
+        }
+      }
+      .jj {
+        background-color: #28a745;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav>
+      <div class="nav-left">
+        <strong>ຂໍ້ມູນ ລາຍ​ຮັບລາຍ​ຈ່າຍ​</strong>
+        <span id="user-email" class="user-email"></span>
+      </div>
+      <div class="nav-right">
+        <button onclick="showExpenseForm()">Create Expense</button>
+        <button onclick="showAnalysisModal()">Analysis</button>
+        <button onclick="logout()">Logout</button>
+      </div>
+    </nav>
+
+    <div id="loading-indicator" class="loading-indicator"></div>
+
+    <table id="expense-table">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+
+    <div class="modal-content">
+      <span class="close" onclick="closeAnalysisModal()">&times;</span>
+      <a href="./dashboard.html">
+        <button class="jj">
+          ກັບໄປໜ້າຫຼັກ
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="35"
+            height="35"
+            fill="currentColor"
+            class="bi bi-arrow-return-left"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"
+            />
+          </svg>
+        </button>
+      </a>
+
+      <h2>ຂໍ້ມູນ ລາຍ​ຮັບ/ລາຍ​ຈ່າຍ</h2>
+      <h3></h3>
+      <h3>ລາຍຈ່າຍທັງໝົດທີ່ບັນທຶກໄວ້: <span id="total-expenses"> ກີບ</span></h3>
+      <div class="chart-container">
+        <div class="chart-card">
+          <h3>ຂໍ້ມູນ ລາຍ​ຈ່າຍ</h3>
+          <canvas id="expense-chart" class="chart"></canvas>
+        </div>
+
+        <div class="chart-card">
+          <h3>ປະເພດ ການໂອນ</h3>
+          <canvas id="payment-method-chart" class="chart"></canvas>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

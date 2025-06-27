@@ -2,203 +2,235 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login-Expense Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login - Expense Tracker</title>
+
+    <!-- Bootstrap 5 CDN -->
     <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="./css/style.css" />
-    <link rel="stylesheet" href="./css/responsive.css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link rel="stylesheet" href="css/animate.css" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="./images/favicon.png"
-    />
+
+    <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons -->
     <link
       rel="stylesheet"
       href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
       integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
       crossorigin="anonymous"
     />
-  </head>
-  <body>
-    <header>
-      <section id="navigation-bar-own">
-        <div class="container-fluid">
-          <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="index.html"
-              >Expense <span class="color-style">Manager.</span>
-            </a>
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarNav"
-              aria-controls="navbarNav"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                  <a class="nav-link" href="index.html">Sign in </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="signup.html">Sign up </a>
-                </li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-      </section>
-      <!-- Close-my-navigation-section -->
-    </header>
-    <main>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-7">
-            <section class="left-textDetails">
-              <h1
-                class="wow fadeInUp"
-                data-wow-duration="1s"
-                data-wow-delay="2s"
-              >
-                WELCOME TO <span class="color-style">EXPENSE MANAGER</span>
-              </h1>
 
-              <p
-                class="wow fadeInUp"
-                data-wow-duration="1s"
-                data-wow-delay="2s"
-              >
-                An expense tracker app is generally used to track business
-                expenses, which is important for accounting and tax purposes.
-                With this app You can tracker your expenses on the go to record
-                things such as travel expenses, mileage, and meals.
-              </p>
-              <button
-                class="btn custom-btn wow fadeInUp"
-                data-wow-duration="1s"
-                data-wow-delay="2s"
-              >
-                <a href="signup.html">Sign up</a>
-              </button>
-            </section>
-            <!-- close-text-details-section -->
-          </div>
-          <div class="col-md-5">
-            <section
-              class="right-formcontainer wow fadeIn"
-              data-wow-duration="3s"
-              data-wow-delay="1s"
-            >
-              <h3
-                class="wow fadeInUp"
-                data-wow-duration="2s"
-                data-wow-delay="0s"
-                id="show-message"
-              ></h3>
-              <h2>LOGIN</h2>
-              <p>Login now to start.</p>
-              <form>
-                <div class="form-group">
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="userEmail"
-                    aria-describedby="emailHelp"
-                    placeholder="Enter Your Email"
-                  />
-                  <small id="emailHelp" class="form-text text-muted"
-                    >We'll never share your email with anyone else.</small
-                  >
-                </div>
-                <div class="form-group">
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="userPassword"
-                    placeholder="Enter Your Password"
-                  />
-                </div>
-                <div class="lds-ring" id="loader">
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                </div>
-                <button
-                  type="submit"
-                  class="btn custom-btn"
-                  id="login-btn"
-                  onclick="login(event)"
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./images/favicon.png"
+    />
+
+    <style>
+      body {
+        background: linear-gradient(
+          90deg,
+          #dff7f3 0%,
+          #c8fad3 42%,
+          #ffd6f1 56%
+        );
+        font-family: "Noto Sans Lao", "Poppins", sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+      }
+
+      .card {
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        background: #fff;
+      }
+
+      .brand-text {
+        font-weight: 600;
+        color: #00b894;
+      }
+
+      .form-control {
+        border-radius: 10px;
+        padding: 12px;
+      }
+
+      .btn-custom {
+        background-color: #00b894;
+        border: none;
+        border-radius: 10px;
+        font-weight: bold;
+        padding: 10px;
+        width: 100%;
+        color: white;
+      }
+
+      .btn-custom:hover {
+        background-color: #019875;
+      }
+
+      .spinner-border {
+        display: none;
+      }
+
+      .welcome-section {
+        padding: 20px;
+      }
+
+      .welcome-section h1 {
+        font-weight: bold;
+        font-size: 2rem;
+      }
+
+      .welcome-section p {
+        font-size: 1rem;
+        color: #444;
+      }
+
+      .welcome-section .btn {
+        margin-top: 15px;
+      }
+
+      @media (max-width: 768px) {
+        .welcome-section {
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row align-items-center">
+        <!-- Welcome Section -->
+        <div class="col-lg-6 col-md-12 mb-4">
+          <section class="welcome-section">
+            <h1>
+              ຍິນດີຕ້ອນຮັບເຂົ້າສູ່
+              <span class="brand-text">ເວັບໃຊ້ຈັດການ ລາຍຮັບ/ລາຍຈ່າຍ</span>
+            </h1>
+            <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="2s">
+              ແອັບຕິດຕາມຄ່າໃຊ້ຈ່າຍໂດຍທົ່ວໄປ
+              ເພື່ອຕິດຕາມຄ່າໃຊ້ຈ່າຍຂອງທ່ານໄດ້ຢ່າງງ່າຍດາຍ. ບັນທຶກຄ່າເດີນທາງ
+              ໄລຍະທາງ ແລະອາຫານໄດ້ທຸກມື້.
+            </p>
+            <a href="index.html" class="btn btn-custom w-50">ສະໝັກບັນຊີໃໝ່</a>
+          </section>
+        </div>
+
+        <!-- Login Form -->
+        <div class="col-lg-6 col-md-12">
+          <div class="card p-4">
+            <div class="text-center mb-4">
+              <h2 class="brand-text">ເຂົ້າສູ່ລະບົບ</h2>
+              <p class="text-muted">ມາເລີ່ມຈັດການລາຍຈ່າຍລາຍຮັບກັນເລີຍ</p>
+            </div>
+
+            <form onsubmit="login(event)">
+              <div class="mb-3">
+                <label for="userEmail" class="form-label">ອີເມວ</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="userEmail"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="userPassword" class="form-label">ລະຫັດຜ່ານ</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="userPassword"
+                  required
+                />
+              </div>
+
+              <div class="d-flex justify-content-center mb-3">
+                <div
+                  class="spinner-border text-success"
+                  role="status"
+                  id="loader"
                 >
-                  Login
-                </button>
-                <!-- <a href="./Reset-passwordPage.html" class="colored-link"
-                  >Forgotten password?</a
-                > -->
-              </form>
-            </section>
-            <!-- Close-LoginForm-section -->
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-custom">
+                ເຂົ້າສູ່ລະບົບ
+              </button>
+            </form>
+
+            <div class="mt-3 text-center">
+              <p class="text-muted">
+                ຍັງບໍ່ມີັບັນຊີ?
+                <a href="signup.html" class="text-success fw-bold"
+                  >ສະໝັກບັນຊີ</a
+                >
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </main>
+    </div>
 
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
-    <!-- <script>setTimeout(onloading => {document.getElementById("loading-screen-bg").style.display="none";}, 2000);</script> -->
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
-    <script src="js/wow.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
 
+    <!-- Firebase Config -->
     <script>
-      new WOW().init();
-    </script>
-
-    <script>
-      // Your web app's Firebase configuration
-      var firebaseConfig = {
-        apiKey: "AIzaSyByQw_ywcQrp-h1Y5NAu6EHpx5-w9EvrtI",
-        authDomain: "expense-mng.firebaseapp.com",
-        projectId: "expense-mng",
-        storageBucket: "expense-mng.appspot.com",
-        messagingSenderId: "524680470133",
-        appId: "1:524680470133:web:0d4db1c304666c1daa623c",
+      const firebaseConfig = {
+        apiKey: "AIzaSyARaEo61U-dTZTYxb9r8JKO3ESwCQwPlIo",
+        authDomain: "learn-indonesian.firebaseapp.com",
+        projectId: "learn-indonesian",
+        storageBucket: "learn-indonesian.appspot.com",
+        messagingSenderId: "61342559557",
+        appId: "1:61342559557:web:dff4d03cef9fb5cf1b222c",
       };
-      // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
     </script>
 
-    <!-- Add Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
+    <!-- Login Script -->
+    <script>
+      function login(event) {
+        event.preventDefault();
+        const email = document.getElementById("userEmail").value;
+        const password = document.getElementById("userPassword").value;
+        const loader = document.getElementById("loader");
 
-    <script src="./js/signin-script.js"></script>
+        loader.style.display = "inline-block";
+
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(email, password)
+          .then((userCredential) => {
+            loader.style.display = "none";
+            
+            window.location.href = "dashboard.html";
+          })
+          .catch((error) => {
+            loader.style.display = "none";
+            alert("❌ ລະຫັດຫຼືເມວບໍຖືກຕ້ອງ: ");
+          });
+      }
+    </script>
   </body>
 </html>

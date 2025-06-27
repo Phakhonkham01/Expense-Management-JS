@@ -4,42 +4,266 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Expense-Expense Tracker</title>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="./css/style.css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link rel="stylesheet" href="./css/animate.css" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="./images/favicon.png"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-      crossorigin="anonymous"
-    />
   </head>
+  <style>
+    /* General Body Styles */
+    body {
+      font-family: "Noto Sans Lao", sans-serif; /* Using a Lao-friendly font */
+      margin: 0;
+      padding: 0;
+      background: #dff7f3;
+      background: linear-gradient(
+        90deg,
+        rgba(223, 247, 243, 1) 0%,
+        rgb(200, 250, 211) 42%,
+        rgb(255, 214, 241) 56%
+      );
+      color: #333;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* Ensure body takes full viewport height */
+    }
+
+    /* Header Styles */
+    header {
+      background: #dff7f3;
+      background: linear-gradient(
+        90deg,
+        rgba(223, 247, 243, 1) 0%,
+        rgb(200, 250, 211) 42%,
+        rgb(255, 214, 241) 56%
+      );
+      color: #ecf0f1; /* Light text color */
+      padding: 1rem 0;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    #navigation-bar-own {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      color: #ecf0f1;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav a span {
+      color: #1abc9c; /* Teal accent for "Manager." */
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    nav ul li {
+      margin-left: 20px;
+    }
+
+    nav ul li a {
+      color: #ecf0f1;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 5px 10px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background-color: #34495e; /* Slightly darker on hover */
+    }
+
+    /* Hamburger button for small screens (placeholder for now) */
+    nav button {
+      display: none; /* Hidden by default, show on small screens */
+      background: none;
+      border: none;
+      color: #ecf0f1;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Main Content Area */
+    main {
+      flex-grow: 1; /* Allows main content to take available space */
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start; /* Align content to the top */
+    }
+
+    #add-expense-section {
+      background: #dff7f3;
+      background: linear-gradient(
+        90deg,
+        rgb(186, 245, 235) 0%,
+        rgb(224, 237, 226) 42%,
+        rgb(194, 255, 225) 56%
+      );
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(227, 205, 205, 0.1);
+      padding: 30px;
+      max-width: 600px;
+      width: 100%;
+      box-sizing: border-box; /* Include padding in element's total width and height */
+    }
+
+    #backto-btn {
+      background-color: #3498db; /* Blue for back button */
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-bottom: 20px;
+      transition: background-color 0.3s ease;
+      display: flex; /* To center the 'i' icon if it were visible */
+      align-items: center;
+      justify-content: center;
+    }
+
+    #backto-btn:hover {
+      background-color: #2980b9;
+    }
+
+    #add-form h1 {
+      color: #2c3e50;
+      font-size: 2rem;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    #add-form p {
+      color: #7f8c8d;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    #show-message {
+      color: #e74c3c; /* Red for error messages */
+      text-align: center;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+
+    /* Form Styling */
+    #addExpense-form div {
+      margin-bottom: 15px;
+    }
+
+    #addExpense-form label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+      font-weight: bold;
+    }
+
+    #addExpense-form input[type="text"],
+    #addExpense-form input[type="date"],
+    #addExpense-form select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+      box-sizing: border-box;
+      background-color: #fcfcfc;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #addExpense-form input[type="text"]::placeholder {
+      color: #aaa;
+    }
+
+    #addExpense-form input[type="text"]:focus,
+    #addExpense-form input[type="date"]:focus,
+    #addExpense-form select:focus {
+      border-color: #3498db;
+      box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+      outline: none;
+    }
+
+    #btn-load {
+      width: 100%;
+      padding: 15px;
+      background-color: #1abc9c; /* Teal for save button */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    #btn-load:hover {
+      background-color: #16a085;
+      transform: translateY(-2px);
+    }
+
+    #btn-load:active {
+      transform: translateY(0);
+    }
+
+    /* Responsive Design (Basic) */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav ul {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        display: none; /* Hide nav items by default */
+      }
+
+      nav ul.show {
+        /* Class to show nav items when toggled */
+        display: flex;
+      }
+
+      nav ul li {
+        margin: 10px 0;
+      }
+
+      nav button {
+        display: block; /* Show hamburger button */
+        align-self: flex-end; /* Align to the right in flex column */
+      }
+
+      #add-expense-section {
+        padding: 20px;
+      }
+
+      #add-form h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
   <body>
     <header>
       <section id="navigation-bar-own">
-        <div class="container-fluid">
-          <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="#"
-              >Expense <span class="color-style">Manager.</span>
-            </a>
+        <div>
+          <nav>
+            <a href="#">Expense <span>Manager.</span></a>
             <button
-              class="navbar-toggler"
               type="button"
               data-toggle="collapse"
               data-target="#navbarNav"
@@ -47,13 +271,13 @@
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <i class="fas fa-bars"></i>
+              <i></i>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                  <a class="nav-link" href="login.html" onclick="logout()"
-                    >Log out &nbsp;<i class="fas fa-sign-out-alt"></i
+            <div id="navbarNav">
+              <ul>
+                <li>
+                  <a href="login.html" onclick="logout()"
+                    >Log out &nbsp;<i></i
                   ></a>
                 </li>
               </ul>
@@ -61,123 +285,122 @@
           </nav>
         </div>
       </section>
-      <!-- Close-my-navigation-section -->
     </header>
+
     <main>
       <section id="add-expense-section">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6">
-              <a href="./dashboard.html">
-                <button class="backto-btn">
-                  <i class="fas fa-long-arrow-alt-left"></i></button
-              ></a>
+        <div>
+          <div>
+            <a href="./dashboard.html">
+              <button id="backto-btn">
+                ກັບໄປໜ້າຫຼັກ
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="35"
+                  height="35"
+                  fill="currentColor"
+                  class="bi bi-arrow-return-left"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"
+                  />
+                </svg>
+              </button>
+            </a>
 
-              <section id="add-form" data-wow-duration="1s" data-wow-delay="1s">
-                <h3
-                  class="wow fadeInUp"
-                  data-wow-duration="2s"
-                  data-wow-delay="0s"
-                  id="show-message"
-                ></h3>
-                <h1>ADD EXPENSE</h1>
-                <p>Add your all expenses here</p>
-                <form id="addExpense-form">
-                  <div class="form-group">
-                    <select class="custom-select" id="category-select"></select>
-                  </div>
+            <section id="add-form">
+              <h3 id="show-message"></h3>
+              <h1>ເພີ່ມລາຍຈ່າຍ</h1>
+              <p>ເພີ່ມລາຍຈ່າຍຂອງທ່ານທີ່ນີ້</p>
+              <form id="addExpense-form">
+                <div>
+                  <select id="category-select"></select>
+                </div>
 
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="ExpenseTextDetails"
-                      placeholder="Enter Text Details"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="expensePrice"
-                      placeholder="Enter Price"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    id="btn-load"
-                    class="btn custom-btn"
-                    onclick="getExpenseDetails(event)"
-                  >
-                    Save
-                  </button>
-                </form>
-              </section>
-            </div>
-            <div class="col-md-6">
-              <img
-                src="./images/add-pageImage.png"
-                class="wow fadeInLeft"
-                data-wow-duration="1s"
-                data-wow-delay="1s"
-                alt="add-image"
-                height="auto"
-                width="100%"
-              />
-            </div>
+                <div>
+                  <input
+                    type="text"
+                    id="ExpenseTextDetails"
+                    placeholder="ປ້ອນລາຍລະອຽດ"
+                  />
+                </div>
+
+                <div>
+                  <input type="text" id="expensePrice" placeholder="ປ້ອນລາຄາ" />
+                </div>
+
+                <div>
+                  <input type="date" id="date" required />
+                </div>
+
+                <div>
+                  <label for="payment-method">Payment Method:</label>
+                  <select id="payment-method" required>
+                    <option value="Cash">ເງິນສົດ</option>
+                    <option value="Credit Card">ເງິນໂອນ</option>
+                    <option value="Debit Card">ບັດເຄດິດ</option>
+                  </select>
+                </div>
+
+                <button
+                  type="submit"
+                  id="btn-load"
+                  onclick="getExpenseDetails(event)"
+                >
+                  Save
+                </button>
+              </form>
+            </section>
           </div>
         </div>
       </section>
     </main>
 
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
-    <!-- <script>
-    
-    setTimeout(onloading => {
-       
-        document.getElementById("loading-screen-bg").style.display="none";
-        
-    }, 2000);
-</script> -->
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="js/wow.min.js"></script>
 
     <script>
       new WOW().init();
+
+      // กำหนดวันที่ปัจจุบันใน input#date
+      window.addEventListener("DOMContentLoaded", () => {
+        const dateInput = document.getElementById("date");
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, "0");
+        const dd = String(today.getDate()).padStart(2, "0");
+        dateInput.value = `${yyyy}-${mm}-${dd}`;
+      });
+
+      function logout() {
+        // เขียนฟังก์ชัน logout ตามต้องการ
+        console.log("Logging out...");
+      }
     </script>
-    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+
+    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
 
     <script>
-      // Your web app's Firebase configuration
       var firebaseConfig = {
-        apiKey: "AIzaSyByQw_ywcQrp-h1Y5NAu6EHpx5-w9EvrtI",
-        authDomain: "expense-mng.firebaseapp.com",
-        projectId: "expense-mng",
-        storageBucket: "expense-mng.appspot.com",
-        messagingSenderId: "524680470133",
-        appId: "1:524680470133:web:0d4db1c304666c1daa623c",
+        apiKey: "AIzaSyARaEo61U-dTZTYxb9r8JKO3ESwCQwPlIo",
+        authDomain: "learn-indonesian.firebaseapp.com",
+        projectId: "learn-indonesian",
+        storageBucket: "learn-indonesian.appspot.com",
+        messagingSenderId: "61342559557",
+        appId: "1:61342559557:web:dff4d03cef9fb5cf1b222c",
       };
-      // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
     </script>
 
-    <!-- Add Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
+    <!-- Your Script -->
     <script src="./js/addExpense-script.js"></script>
   </body>
 </html>

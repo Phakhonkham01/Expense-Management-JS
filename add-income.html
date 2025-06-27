@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Income</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        font-family: "Noto Sans Lao", sans-serif; /* Using a Lao-friendly font */
+        background: #dff7f3;
+        background: linear-gradient(
+          90deg,
+          rgba(223, 247, 243, 1) 0%,
+          rgb(200, 250, 211) 42%,
+          rgb(255, 214, 241) 56%
+        );
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh; /* Full viewport height */
+        margin: 0;
+      }
+      .bb {
+        background: #eddd53;
+        background: linear-gradient(
+          90deg,
+          rgba(237, 221, 83, 1) 0%,
+          rgba(87, 199, 133, 1) 0%,
+          rgba(178, 200, 170, 1) 100%,
+          rgba(255, 201, 201, 1) 37%,
+          rgba(68, 204, 141, 1) 44%,
+          rgba(73, 203, 139, 1) 59%,
+          rgba(53, 208, 147, 1) 67%,
+          rgba(25, 215, 159, 1) 84%,
+          rgba(20, 216, 161, 1) 88%,
+          rgba(0, 222, 170, 1) 100%
+        );
+        color: aliceblue;
+        border: none;
+        border-radius: 10px;
+      }
+      .bb:hover {
+        background: #eddd53;
+        background: linear-gradient(
+          90deg,
+          rgba(237, 221, 83, 1) 0%,
+          rgba(87, 199, 133, 1) 0%,
+
+          rgba(0, 222, 170, 1) 100%
+        );
+        color: aliceblue;
+        border: none;
+        border-radius: 10px;
+      }
+      .container {
+        background: #dff7f3;
+        background: linear-gradient(
+          90deg,
+          rgba(223, 247, 243, 1) 0%,
+          rgba(255, 244, 145, 1) 100%,
+          rgba(178, 200, 170, 1) 56%
+        );
+        border-radius: 10px; /* Slightly rounded corners */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+        padding: 40px; /* More padding */
+        max-width: 500px; /* Limit form width */
+        width: 90%; /* Responsive width */
+      }
+      h2 {
+        color: #007bff; /* Primary blue for heading */
+        text-align: center;
+        margin-bottom: 30px; /* More space below heading */
+        font-weight: 600; /* Slightly bolder */
+      }
+      .form-group label {
+        font-weight: 500; /* Medium weight for labels */
+        color: #343a40; /* Darker label text */
+        margin-bottom: 8px; /* Space between label and input */
+      }
+      .form-control {
+        border-radius: 5px; /* Rounded input fields */
+        border: 1px solid #ced4da; /* Subtle border */
+        padding: 10px 15px; /* Comfortable padding inside inputs */
+        transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+      }
+      .form-control:focus {
+        border-color: #80bdff; /* Bootstrap focus blue */
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Bootstrap focus shadow */
+      }
+      .btn-success {
+        background-color: #28a745; /* Standard green */
+        border-color: #28a745;
+        font-size: 1.1rem; /* Slightly larger button text */
+        padding: 10px 20px;
+        border-radius: 5px;
+        width: 100%; /* Full width button */
+        margin-top: 20px; /* Space above button */
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+      }
+      .btn-success:hover {
+        background-color: #218838; /* Darker green on hover */
+        border-color: #1e7e34;
+      }
+      /* SweetAlert2 basic styling for better alerts */
+      .swal2-popup {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .swal2-title {
+        color: #343a40;
+      }
+      .swal2-content {
+        color: #6c757d;
+      }
+    </style>
+  </head>
+
+  <body class="bg-light">
+    <div class="container">
+      <a href="./dashboard.html">
+        <button class="bb">
+          ກັບໄປໜ້າຫຼັກ
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            fill="currentColor"
+            class="bi bi-arrow-return-left"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"
+            />
+          </svg>
+        </button>
+      </a>
+      <h2 class="mb-4">ເພີ່ມລາຍຮັບ</h2>
+      <form id="income-form">
+        <div class="form-group">
+          <label for="incomeDetail">ລາຍລະອຽດລາຍຮັບ</label>
+          <input
+            type="text"
+            class="form-control"
+            id="incomeDetail"
+            placeholder="ເຊັ່ນ ເງິນເດືອນ, ຂາຍເຄື່ອງ"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="incomeAmount">ຈຳນວນເງິນ</label>
+          <input
+            type="number"
+            class="form-control"
+            id="incomeAmount"
+            placeholder="500000"
+            required
+            min="0"
+          />
+        </div>
+        <button type="submit" class="btn btn-success">ບັນທຶກລາຍຮັບ</button>
+      </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+      // Firebase config
+      const firebaseConfig = {
+        apiKey: "AIzaSyARaEo61U-dTZTYxb9r8JKO3ESwCQwPlIo",
+        authDomain: "learn-indonesian.firebaseapp.com",
+        projectId: "learn-indonesian",
+        storageBucket: "learn-indonesian.appspot.com",
+        messagingSenderId: "61342559557",
+        appId: "1:61342559557:web:dff4d03cef9fb5cf1b222c",
+      };
+      firebase.initializeApp(firebaseConfig);
+
+      const db = firebase.firestore();
+      const auth = firebase.auth();
+
+      document
+        .getElementById("income-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const incomeDetail = document.getElementById("incomeDetail").value;
+          const incomeAmount = parseFloat(
+            document.getElementById("incomeAmount").value
+          ); // Use parseFloat for numbers
+
+          // Input validation
+          if (
+            !incomeDetail.trim() ||
+            isNaN(incomeAmount) ||
+            incomeAmount <= 0
+          ) {
+            Swal.fire({
+              icon: "error",
+              title: "ຂໍ້ຜິດພາດ!",
+              text: "ກະລຸນາປ້ອນລາຍລະອຽດ ແລະ ຈຳນວນເງິນທີ່ຖືກຕ້ອງ.",
+              confirmButtonText: "ຕົກລົງ",
+            });
+            return; // Stop the function if validation fails
+          }
+
+          auth.onAuthStateChanged((user) => {
+            if (user) {
+              db.collection("incomeDetails")
+                .add({
+                  incomeTextDetails: incomeDetail,
+                  incomeAmount: incomeAmount,
+                  CreatedAt: new Date().toLocaleDateString("en-GB"),
+                  userID: user.uid,
+                })
+                .then(() => {
+                  Swal.fire({
+                    icon: "success",
+                    title: "ສຳເລັດ!",
+                    text: "ເພີ່ມລາຍຮັບສຳເລັດແລ້ວ!",
+                    confirmButtonText: "ຕົກລົງ",
+                  }).then(() => {
+                    document.getElementById("income-form").reset(); // Reset form only on success
+                  });
+                })
+                .catch((err) => {
+                  console.error("Error adding document: ", err);
+                  Swal.fire({
+                    icon: "error",
+                    title: "ຂໍ້ຜິດພາດ!",
+                    text: "ເກີດຂໍ້ຜິດພາດໃນການບັນທຶກຂໍ້ມູນ. ກະລຸນາລອງໃໝ່ອີກຄັ້ງ.",
+                    confirmButtonText: "ຕົກລົງ",
+                  });
+                });
+            } else {
+              Swal.fire({
+                icon: "warning",
+                title: "ບໍ່ໄດ້ເຂົ້າສູ່ລະບົບ!",
+                text: "ກະລຸນາເຂົ້າສູ່ລະບົບກ່ອນເພື່ອເພີ່ມລາຍຮັບ.",
+                confirmButtonText: "ຕົກລົງ",
+              }).then(() => {
+                window.location = "index.html"; // Redirect after user acknowledges
+              });
+            }
+          });
+        });
+    </script>
+  </body>
+</html>

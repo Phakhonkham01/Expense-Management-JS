@@ -30,15 +30,23 @@
       integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
       crossorigin="anonymous"
     />
+    <style>
+      .container-fluid {
+        padding-left: 0px;
+        padding-right: 0px;
+        background-color: antiquewhite;
+      }
+      .brand-text {
+        font-weight: 600;
+        color: #00b894;
+      }
+    </style>
   </head>
   <body>
     <header>
       <section id="navigation-bar-own">
         <div class="container-fluid">
           <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="#"
-              >Expense <span class="color-style">Manager.</span>
-            </a>
             <button
               class="navbar-toggler"
               type="button"
@@ -53,10 +61,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                  <a class="nav-link" href="index.html">Sign in </a>
+                  <a class="nav-link text-dark" href="index.html">ເຂົ້າສູ່ລະບົບ </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="signup.html">Sign up </a>
+                  <a class="nav-link text-dark" href="signup.html">ສະໝັກບັນຊີ</a>
                 </li>
               </ul>
             </div>
@@ -75,27 +83,31 @@
                 data-wow-duration="1s"
                 data-wow-delay="2s"
               >
-                WELCOME TO <span class="color-style">EXPENSE MANAGER</span>
+                <h1>
+                  ຍິນດີຕ້ອນຮັບເຂົ້າສູ່
+                  <span class="brand-text">ເວັບໃຊ້ຈັດການ ລາຍຮັບ/ລາຍຈ່າຍ</span>
+                </h1>
               </h1>
 
               <p
-                class="wow fadeInUp"
+                class="wow fadeInUp text-dark"
                 data-wow-duration="1s"
                 data-wow-delay="2s"
               >
-                An expense tracker app is generally used to track business
-                expenses, which is important for accounting and tax purposes.
-                With this app You can tracker your expenses on the go to record
-                things such as travel expenses, mileage, and meals.
+                ແອັບຕິດຕາມຄ່າໃຊ້ຈ່າຍໂດຍທົ່ວໄປ
+                ເພື່ອຕິດຕາມຄ່າໃຊ້ຈ່າຍຂອງທ່ານໄດ້ຢ່າງງ່າຍດາຍ. ບັນທຶກຄ່າເດີນທາງ
+                ໄລຍະທາງ ແລະອາຫານໄດ້ທຸກມື້.
               </p>
-              <button
-                class="btn custom-btn wow fadeInUp"
-                class="wow fadeInLeft"
-                data-wow-duration="1s"
-                data-wow-delay="2s"
-              >
-                <a href="index.html">Sign in</a>
-              </button>
+              <a href="index.html">
+                <button
+                  class="btn custom-btn wow fadeInUp"
+                  class="wow fadeInLeft"
+                  data-wow-duration="1s"
+                  data-wow-delay="2s"
+                >
+                  ເຂົ້າສູ່ລະບົບ
+                </button>
+              </a>
             </section>
             <!-- close-text-details-section -->
           </div>
@@ -108,15 +120,15 @@
             >
               <h3 id="show-message"></h3>
 
-              <h2>Sign up</h2>
-              <p>Create an account.</p>
+              <h2>ສະໝັກບັນຊີ</h2>
+              <p>ສ້າງບັນຊີໃໝ່</p>
               <form id="sign-up">
                 <div class="form-group">
                   <input
                     type="text"
                     class="form-control"
                     id="userFullName"
-                    placeholder="Enter Your Full Name"
+                    placeholder="ປ້ອນຊື່ ແລະ ນາມສະກຸນ"
                   />
                 </div>
 
@@ -126,7 +138,7 @@
                     class="form-control"
                     id="userEmail"
                     aria-describedby="emailHelp"
-                    placeholder="Enter email"
+                    placeholder="ປ້ອນອີເມວ"
                   />
                 </div>
                 <div class="form-group">
@@ -134,10 +146,10 @@
                     type="password"
                     class="form-control"
                     id="userPassword"
-                    placeholder="Password"
+                    placeholder="ປ້ອນລະຫັດຜ່ານ"
                   />
                   <small id="passwordcond" class="form-text text-muted"
-                    >Your password must be at least 8 characters.</small
+                    >ຕ້ອງປ້ອນລະຫັດຜ່ານ 8 ຕົວຂື້ນໄປ.</small
                   >
                 </div>
                 <div class="form-group">
@@ -145,7 +157,7 @@
                     type="password"
                     class="form-control"
                     id="userRepeatedPassword"
-                    placeholder="Repeat Your Password"
+                    placeholder="ປ້ອນລະຫັດຜ່ານອີກຄັ້ງ"
                   />
                 </div>
                 <div class="lds-ring" id="loader">
@@ -160,7 +172,7 @@
                   class="btn custom-btn"
                   onclick="RegisterUser(event)"
                 >
-                  Sign up
+                 ສະໝັກບັນຊີ
                 </button>
               </form>
             </section>
@@ -197,12 +209,12 @@
     <script>
       // Your web app's Firebase configuration
       var firebaseConfig = {
-        apiKey: "AIzaSyByQw_ywcQrp-h1Y5NAu6EHpx5-w9EvrtI",
-        authDomain: "expense-mng.firebaseapp.com",
-        projectId: "expense-mng",
-        storageBucket: "expense-mng.appspot.com",
-        messagingSenderId: "524680470133",
-        appId: "1:524680470133:web:0d4db1c304666c1daa623c",
+        apiKey: "AIzaSyARaEo61U-dTZTYxb9r8JKO3ESwCQwPlIo",
+        authDomain: "learn-indonesian.firebaseapp.com",
+        projectId: "learn-indonesian",
+        storageBucket: "learn-indonesian.appspot.com",
+        messagingSenderId: "61342559557",
+        appId: "1:61342559557:web:dff4d03cef9fb5cf1b222c",
       };
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);

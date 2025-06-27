@@ -205,7 +205,7 @@ function hideModal() {
 }
 
 function updateBtn(e) {
-    e.preventDefault()
+  e.preventDefault();
   var expenseitem = document.getElementById("expense-item").value;
   var price = document.getElementById("price").value;
   var id = document.getElementById("id").value;
@@ -223,7 +223,38 @@ function updateBtn(e) {
     })
     .then((res) => {
       document.getElementById("modal-box").style.display = "none";
-      window.location.reload()
+      window.location.reload();
     });
 }
+let totalIncome = 0;
+let totalExpense = 0;
 
+// Calculate total income
+firebase
+  .firestore()
+  .collection("incomeDetails")
+  .get()
+  .then((snapshot) => {
+    snapshot.forEach((doc) => {
+      if (doc.data().userID === user.uid) {
+        totalIncome += parseFloat(doc.data().incomeAmount);
+      }
+    });
+    document.getElementById("totalIncome").innerText = totalIncome;
+    document.getElementById("balance").innerText = totalIncome - totalExpense;
+  });
+
+// Calculate total expense
+firebase
+  .firestore()
+  .collection("expenseDetails")
+  .get()
+  .then((snapshot) => {
+    snapshot.forEach((doc) => {
+      if (doc.data().userID === user.uid) {
+        totalExpense += parseFloat(doc.data().expensePrice);
+      }
+    });
+    document.getElementById("totalExpense").innerText = totalExpense;
+    document.getElementById("balance").innerText = totalIncome - totalExpense;
+  });

@@ -1,235 +1,843 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard-Expense Tracker</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/responsive.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" href="./css/animate.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Expense Tracker</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/responsive.css" />
+    <link rel="stylesheet" href="./css/animate.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      crossorigin="anonymous"
+    />
+    <link rel="icon" type="image/png" href="./images/favicon.png" />
+    <style>
+      /* General Body Styles */
+      body.a1 {
+        background: #dff7f3;
+        background: linear-gradient(
+          90deg,
+          rgba(223, 247, 243, 1) 0%,
+          rgb(200, 250, 211) 42%,
+          rgb(255, 214, 241) 56%
+        );
+        font-family: "Noto Sans Lao", sans-serif; /* Using a Lao-friendly font */
+        color: #f8f9fa; /* Light text for better contrast */
+        min-height: 100%;
+        max-width: 100%; /* Ensure body takes full viewport height */
+        display: flex;
+        flex-direction: column; /* Allows content to stack vertically */
+      }
+      .bg-info-1 {
+        background: #57c785;
+        background: linear-gradient(
+          90deg,
+          rgb(67, 179, 113) 23%,
+          rgb(81, 206, 104) 38%
+        );
+      }
+      .bg-info-2 {
+        background: #b3344d;
+        background: linear-gradient(
+          90deg,
+          rgb(190, 27, 60) 23%,
+          rgb(212, 19, 19) 38%
+        );
+      }
+      .bg-info-3 {
+        background: #b3344d;
+        background: linear-gradient(
+          90deg,
+          rgb(235, 219, 0) 23%,
+          rgb(253, 235, 73) 38%
+        );
+      }
+      /* Dashboard Card Styles */
+      .card {
+        border: none; /* Remove default card border */
+        border-radius: 0.5rem; /* Slightly rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+        transition: transform 0.2s ease-in-out; /* Smooth hover effect */
+        height: 100%;
+        width: 100%; /* Make cards in a row the same height */
+      }
+      .card-1 {
+        background: #ff8cbe;
+        background: radial-gradient(
+          circle,
+          rgba(255, 140, 190, 1) 100%,
+          rgba(148, 187, 233, 1) 100%
+        );
+        border: none; /* Remove default card border */
+        border-radius: 0.5rem; /* Slightly rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+        transition: transform 0.2s ease-in-out; /* Smooth hover effect */
+        height: 100%;
+        width: 100%; /* Make cards in a row the same height */
+      }
+      .card-1-1 {
+        display: flex;
+        background: #ff8cbe;
+        background: radial-gradient(
+          circle,
+          rgb(0, 187, 115) 100%,
+          rgba(148, 187, 233, 1) 100%
+        );
+        padding: 10px;
+        gap: 20px;
+        border: none; /* Remove default card border */
+        border-radius: 0.5rem; /* Slightly rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+        transition: transform 0.2s ease-in-out; /* Smooth hover effect */
+        height: 100%;
+        
+        /* Make cards in a row the same height */
+      }
+      .card-1-1-1 {
+        display: flex;
+        flex-wrap: wrap;
+        background: #ff8cbe;
+        background: radial-gradient(
+          circle,
+          rgb(234, 255, 247) 100%,
+          rgba(148, 187, 233, 1) 100%
+        );
+        padding: 10px;
+        gap: 20px;
+        border: none; /* Remove default card border */
+        border-radius: 0.5rem; /* Slightly rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+        transition: transform 0.2s ease-in-out; /* Smooth hover effect */
+        height: 100%;
+        width: 100%; /* Make cards in a row the same height */
+      }
 
-    <header>
-        <section id="navigation-bar-own">
-            <div class="container-fluid">
-                <nav class="navbar navbar-expand-lg navbar-light">
-                    <a class="navbar-brand" href="#">Expense <span class="color-style">Manager.</span> </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                      <ul class="navbar-nav ml-auto">
-                           <li class="nav-item">
-                          <a class="nav-link" href="" onclick="logout(event)">Log out &nbsp;<i class="fas fa-sign-out-alt"></i></a>
-                        </li>
-                    </ul>
-                    </div>
-                  </nav>
+      .card:hover {
+        transform: translateY(-5px); /* Lift card on hover */
+      }
+
+      .card-body {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .card-body-1 {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+        justify-content: center;
+      }
+
+      .card-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+
+      /* Specific styling for total balance section */
+      #balance {
+        color: #fff; /* Ensure balance text is white */
+      }
+
+      /* Table styles */
+      #table-cont {
+        background-color: rgba(
+          0,
+          0,
+          0,
+          0.2
+        ); /* Slightly transparent background for the table container */
+        padding: 20px;
+        border-radius: 0.5rem;
+        margin-bottom: 30px; /* Space at the bottom */
+      }
+
+      .table-dark {
+        background-color: #2c3e50; /* Darker background for the table */
+      }
+
+      .table-dark th,
+      .table-dark td {
+        border-color: #444; /* Darker border for dark table */
+        color: #f8f9fa; /* White text for table content */
+      }
+
+      .table-dark thead th {
+        border-bottom: 2px solid #555; /* More prominent header border */
+      }
+
+      .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(0, 0, 0, 0.1); /* Subtle stripe effect */
+      }
+
+      .table-hover tbody tr:hover {
+        background-color: rgba(0, 0, 0, 0.3); /* Darker hover effect */
+      }
+
+      /* Button Styling Consistency */
+      .btn-danger,
+      .btn-primary,
+      .btn-warning,
+      .btn-secondary {
+        border-radius: 0.25rem; /* Slightly rounded buttons */
+      }
+
+      .btn-sm {
+        padding: 0.25rem 0.5rem; /* Adjust padding for small buttons */
+        font-size: 0.875rem; /* Adjust font size for small buttons */
+        line-height: 1.5;
+      }
+
+      /* Modal styling */
+      .modal-content {
+        border-radius: 0.5rem;
+        background-color: #fff; /* White background for modal content */
+        color: #333; /* Darker text for modal content */
+      }
+
+      .modal-header {
+        background-color: #009771; /* Green header for modal */
+        color: white;
+        border-bottom: 1px solid #dee2e6;
+        border-top-left-radius: 0.5rem;
+        border-top-right-radius: 0.5rem;
+      }
+
+      .modal-footer {
+        border-top: 1px solid #dee2e6;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 1100px) {
+        .display-4 {
+          font-size: 2.5rem; /* Smaller display font on small screens */
+        }
+        .h4 {
+          font-size: 1.2rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="a1">
+    <div class="container mt-4">
+
+      <div class="row text-center text-white">
+
+        <div class="col-md-100 mb-3">
+
+          <div class="card-1-1-1 text-white">
+            <div class="card-body-1">
+              <div class="card-1-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="40"
+                  height="40"
+                  fill="currentColor"
+                  class="bi bi-person-circle"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                  <path
+                    fill-rule="evenodd"
+                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
+                  />
+                </svg>
+                <p>ສະບາຍດີ</p>
+
+                <h4 class="card-text" id="userName">Loading...</h4>
+                <span id="day">Day</span>, <span id="date">00</span>
+                <span id="month">Month</span>
+              </div>
+              <p class="h5 text-white-50">
+                <a
+                  href="/edit-profile.html"
+                  class="btn btn-outline-light mt-2 text-white bg-info"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="30"
+                    height="30"
+                    fill="currentColor"
+                    class="bi bi-pencil-square"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"
+                    />
+                  </svg>
+                  ແກ້ໄຂຂໍ້ມູນ</a
+                >
+              </p>
+              <p>
+                <a
+                  href="/index.html"
+                  class="btn btn-white bg-info mt-2 text-white"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="30"
+                    height="30"
+                    fill="currentColor"
+                    class="bi bi-box-arrow-left"
+                    viewBox="0 0 16 17"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z"
+                    />
+                  </svg>
+                  ອອກຈາກລະບົບ</a
+                >
+              </p>
             </div>
-        </section> 
-        <!-- Close-my-navigation-section -->
-    </header>
-    
-<main>
-    <section id="dashboard">
-     
-        <div class="container">
-            <div class="modal-box" id="modal-box">
-             <button class="btn" style="float: right;" onclick="hideModal()">X</button>
-                <h3>Update Value</h3>
-                <form id="add-category-form" method="GET">
-                    <div class="form-group">
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="expense-item"
-                        placeholder="Expense Item"
-                        required
-                      />
-                    </div>
-                   
-                      <div class="form-group">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="price"
-                          placeholder="Price"
-                          required
-                        />
-                      </div>
-                      <div class="form-group">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="id"
-                          placeholder="Price"
-                          required
-                          
-                        />
-                      </div>
-                    <div class="lds-ring" id="loader">
-                      <div></div>
-                      <div></div>
-                      <div></div>
-                      <div></div>
-                    </div>
-                    <button
-                      type="submit"
-                      id="btn-load"
-                      class="btn custom-btn"
-                      onclick="updateBtn(event)"
-                    >
-                      Update
-                    </button>
-                  </form>
-            </div>
-            <div class="row">
-                <div class="col-md-7">
-                    <h1 class="wow fadeInLeft"  data-wow-duration="1s" data-wow-delay="0s">DASHBOARD</h1>
-                    <h2 id="greetings" class="wow fadeInUp"  data-wow-duration="1s" data-wow-delay="1s">Hello, <span id="userName" class="color-style"></span></h2>
-                    <h2 class="wow fadeIn"  data-wow-duration="1s" data-wow-delay="2s">Welcome!</h2>
-                    <p class="wow fadeIn"  data-wow-duration="1s" data-wow-delay="3s"> <span id="day"></span>&nbsp;<span id="month">--</span> &nbsp;<span id="date">--</span> &nbsp;</p>
-                </div>
-                <div class="col-md-5">
-                    <img src="./images/dashboard-icon.png" alt="dashboard-icon" class="wow fadeIn"  data-wow-duration="2s" data-wow-delay="1s">
-                </div>
-            </div>
+          </div>
         </div>
-    </section>
-    <!-- Close-dashboard-section -->
 
-    <section id="dashboard-addDetails-boxes">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="box mx-auto wow fadeInUp"  data-wow-duration="1s" data-wow-delay="0s">
-                        <h2>ADD CATEGORY</h2>
-                        <a href="./add-category.html"><button id="link-btn" onclick=""><i class="fas fa-arrow-circle-up"></i></button></a>
-                       
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="box mx-auto wow fadeInUp"  data-wow-duration="1s" data-wow-delay="0.5s">
-                        <h2>ADD EXPENSE<h2>
-                            <a href="./add-expense.html"> <button id="link-btn" onclick=""><i class="fas fa-arrow-circle-up"></i></button></a>
-                       
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="box mx-auto wow fadeInUp"  data-wow-duration="1s" data-wow-delay="1s">
-                        <h2>ALL CATEGORIES</h2>
-                        <a href="./all-categories.html"> <button id="link-btn" onclick=""><i class="fas fa-arrow-circle-up"></i></button></a>
-                       
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="box mx-auto wow fadeInUp"  data-wow-duration="1s" data-wow-delay="1s">
-                        <h2>BLOGS </h2>
-                        <a href="./blogs.html"> <button id="link-btn" onclick=""><i class="fas fa-arrow-circle-up"></i></button></a>
-                       
-                    </div>
-                </div>
+        <div class="col-md-12 mb-4">AAAAAA</div>
+
+        <div class="col-md-4 mb-3">
+          <a href="/add-income.html" class="text-white text-decoration-none">
+            <div class="card bg-info-1">
+              <div class="card-body">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="40"
+                  height="40"
+                  fill="currentColor"
+                  class="bi bi-plus-circle mb-2"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
+                  />
+                  <path
+                    d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
+                  />
+                </svg>
+                <h5 class="card-title">ລາຍຮັບທັງໝົດ</h5>
+                <p class="card-text h4" id="totalIncome">0 ₭</p>
+              </div>
             </div>
+          </a>
         </div>
-    </section>
-    <!-- Close-dashboard-addDetails-boxes -->
-    <section id="allexpenses-details-container">
-        <div class="container">
 
-            
-            <div class="row">
-                <button class="custom-btn" onclick="genReport()">GEN REPORT</button>
-                <div class="col-md-12">
-                    <div id="table-cont">
-                        <h2 class="wo fadeInLeft" data-wow-duration="1s" data-wow-delay="1s">All Expenses</h2>
-                        <div id="expense-details-list">
-                            <table id="expense-table" class="table">
-                                <tr>
-                                   
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Category</th>
-                                    <th scope="col">Item</th>
-                                    <th scope="col">Money</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </table>
-                           
-                        </div>
-                        <a style="color: black; font-weight:bold">Expense <span class="color-style">Manager.</span> </a>
-                        <p>Track expenses, save money, and conquer your small budget with our intuitive expense manager web app.</p>
-                        <a style="color: black; font-weight:bold" href="www.muhammadazhariqbal.com">Developer <span class="color-style">Muhammad Azhar Iqbal.</span> </a>
-                       
-                      
-                            
-                    </div>
-                   
-                   
-                </div>
+        <div class="col-md-4 mb-3">
+          <a href="/add-expense.html" class="text-white text-decoration-none">
+            <div class="card bg-info-2">
+              <div class="card-body">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="40"
+                  height="40"
+                  fill="currentColor"
+                  class="bi bi-dash-circle mb-2"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
+                  />
+                  <path
+                    d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"
+                  />
+                </svg>
+                <h5 class="card-title">ລາຍຈ່າຍລວມ</h5>
+                <p class="card-text h4" id="totalExpense">0 ₭</p>
+              </div>
             </div>
+          </a>
         </div>
-    </section>
-</main>
 
+        <div class="col-md-4 mb-3">
+          <div class="card bg-info text-white">
+            <div class="card-body">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="40"
+                height="40"
+                fill="currentColor"
+                class="bi bi-cash-coin"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8m5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0"
+                />
+                <path
+                  d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195z"
+                />
+                <path
+                  d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083q.088-.517.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1z"
+                />
+                <path
+                  d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 6 6 0 0 1 3.13-1.567"
+                />
+              </svg>
 
+              <h5 class="card-title">ຍອດຄົງເຫຼືອ</h5>
+              <p class="card-text h4" id="balance">0 ₭</p>
+            </div>
+          </div>
+        </div>
 
+        <div class="col-md-4 mb-3">
+          <a href="/add-category.html" class="text-dark text-decoration-none">
+            <div class="card bg-info-3">
+              <div class="card-body">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="40"
+                  height="40"
+                  fill="currentColor"
+                  class="bi bi-journal-plus mb-2"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5"
+                  />
+                  <path
+                    d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"
+                  />
+                  <path
+                    d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"
+                  />
+                </svg>
+                <h5 class="card-title">ເພີ່ມໝວດໝູ່ການຊຳລະ</h5>
+              </div>
+            </div>
+          </a>
+        </div>
 
+        <div class="col-md-4 mb-3">
+          <a href="/all-categories.html" class="text-dark text-decoration-none">
+            <div class="card bg-info-3">
+              <div class="card-body">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="40"
+                  height="40"
+                  fill="currentColor"
+                  class="bi bi-pencil-square mb-2"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"
+                  />
+                </svg>
+                <h5 class="card-title">ຈັດການໝວດໝູ່ການຊຳລະ</h5>
+              </div>
+            </div>
+          </a>
+        </div>
 
+        <div class="col-md-4 mb-3">
+          <a href="/main.html" class="text-white text-decoration-none">
+            <div class="card bg-info">
+              <div class="card-body">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="40"
+                  height="40"
+                  fill="currentColor"
+                  class="bi bi-pie-chart-fill mb-2"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M15.985 8.5H8.207l-5.5 5.5a8 8 0 0 0 13.277-5.5zM2 13.292A8 8 0 0 1 7.5.015v7.778zM8.5.015V7.5h7.485A8 8 0 0 0 8.5.015"
+                  />
+                </svg>
+                <h5 class="card-title">ສະຫຼຸບລາຍຮັບລາຍຈ່າຍ</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
 
+    <div id="table-cont" class="container mt-3">
+      <h2 class="text-white mb-3">ລາຍຈ່າຍທັງໝົດ</h2>
+      <div class="table-responsive">
+        <table
+          class="table table-wide table-striped table-hover"
+          id="expense-table"
+        >
+          <thead>
+            <tr>
+              <th>ວັນທີ</th>
+              <th>ປະເພດ</th>
+              <th>ລາຍການ</th>
+              <th>ເງິນ (₭)</th>
+              <th>ຈັດການ</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <button class="btn btn-warning mt-3 float-right" onclick="genReport()">
+        <i class="fas fa-file-pdf mr-2"></i>ສ້າງລາຍງານ PDF
+      </button>
+    </div>
 
+    <div
+      class="modal fade"
+      id="editExpenseModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="editExpenseModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editExpenseModalLabel">ແກ້ໄຂລາຍຈ່າຍ</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+              onclick="hideModal()"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form onsubmit="updateBtn(event)">
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="expense-item">ລາຍການໃຊ້ຈ່າຍ</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="expense-item"
+                  placeholder="ປ້ອນລາຍການໃຊ້ຈ່າຍ"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="price">ລາຄາ</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="price"
+                  placeholder="ປ້ອນລາຄາ"
+                  required
+                />
+              </div>
+              <input type="hidden" id="id" />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+                onclick="hideModal()"
+              >
+                ຍົກເລີກ
+              </button>
+              <button type="submit" class="btn btn-primary">
+                ບັນທຶກການປ່ຽນແປງ
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
 
+    <script>
+      window.onload = function () {
+        // Firebase config - REPLACE WITH YOUR ACTUAL CONFIG
+        var firebaseConfig = {
+          apiKey: "AIzaSyARaEo61U-dTZTYxb9r8JKO3ESwCQwPlIo",
+          authDomain: "learn-indonesian.firebaseapp.com",
+          projectId: "learn-indonesian",
+          storageBucket: "learn-indonesian.appspot.com",
+          messagingSenderId: "61342559557",
+          appId: "1:61342559557:web:dff4d03cef9fb5cf1b222c",
+        };
+        firebase.initializeApp(firebaseConfig);
 
+        firebase.auth().onAuthStateChanged((user) => {
+          if (!user) {
+            window.location.href = "../index.html";
+            return;
+          }
 
+          // Show date
+          const date = new Date();
+          const week = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+          const months = [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+          ];
+          document.getElementById("day").innerText = week[date.getDay()];
+          document.getElementById("date").innerText = date.getDate();
+          document.getElementById("month").innerText = months[date.getMonth()];
 
+          // Load user data
+          firebase
+            .firestore()
+            .collection("users")
+            .doc(user.uid)
+            .get()
+            .then((doc) => {
+              if (doc.exists) {
+                document.getElementById("userName").innerText = doc.data().name;
+              } else {
+                document.getElementById("userName").innerText = "User"; // Fallback name
+              }
+            })
+            .catch((err) => {
+              console.error("Error fetching user data:", err);
+              document.getElementById("userName").innerText = "User";
+            });
 
+          // Load income and expense data
+          let totalIncome = 0;
+          let totalExpense = 0;
+          const currencyFormat = (num) =>
+            `${num.toLocaleString("en-US", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })} ₭`;
 
+          // Fetch Income
+          firebase
+            .firestore()
+            .collection("incomeDetails")
+            .where("userID", "==", user.uid)
+            .get()
+            .then((snap) => {
+              snap.forEach((doc) => {
+                totalIncome += parseFloat(doc.data().incomeAmount) || 0;
+              });
+              document.getElementById("totalIncome").innerText =
+                currencyFormat(totalIncome);
+              updateBalance();
+            })
+            .catch((error) => {
+              console.error("Error fetching income details: ", error);
+            });
 
+          // Fetch Expense
+          firebase
+            .firestore()
+            .collection("expenseDetails")
+            .where("userID", "==", user.uid)
+            .get()
+            .then((snap) => {
+              const expenseTableBody = document.querySelector(
+                "#expense-table tbody"
+              );
+              expenseTableBody.innerHTML = ""; // Clear existing rows
 
+              snap.forEach((doc) => {
+                const expenseData = doc.data();
+                const expensePrice = parseFloat(expenseData.expensePrice) || 0;
+                totalExpense += expensePrice;
 
+                const row = expenseTableBody.insertRow();
+                row.innerHTML = `
+                    <td>${expenseData.CreatedAt || "N/A"}</td>
+                    <td>${expenseData.selectedValue || "N/A"}</td>
+                    <td>${expenseData.expenseTextDetails || "N/A"}</td>
+                    <td>${currencyFormat(expensePrice)}</td>
+                    <td>
+                      <button class="btn btn-sm btn-primary mr-1" onclick="editExpense('${
+                        doc.id
+                      }')"><i class="fas fa-edit"></i></button>
+                      <button class="btn btn-sm btn-danger" onclick="deleteExpense('${
+                        doc.id
+                      }')"><i class="fas fa-trash-alt"></i></button>
+                    </td>
+                  `;
+              });
+              document.getElementById("totalExpense").innerText =
+                currencyFormat(totalExpense);
+              updateBalance();
+            })
+            .catch((error) => {
+              console.error("Error fetching expense details: ", error);
+            });
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<!-- <script>
-var onloading=()=>{document.getElementById("loading-screen-bg").style.display="none";}
-</script> -->
-<script src="js/wow.min.js"></script>
+          function updateBalance() {
+            const balance = totalIncome - totalExpense;
+            document.getElementById("balance").innerText =
+              currencyFormat(balance);
+          }
+        });
+      };
 
-<script>
-    new WOW().init();
-</script>
+      function logout(event) {
+        event.preventDefault();
+        firebase
+          .auth()
+          .signOut()
+          .then(() => {
+            window.location.href = "../index.html";
+          })
+          .catch((error) => {
+            console.error("Error logging out: ", error);
+          });
+      }
 
+      function deleteExpense(id) {
+        if (!confirm("Are you sure you want to delete this expense?")) {
+          return;
+        }
+        firebase
+          .firestore()
+          .collection("expenseDetails")
+          .doc(id)
+          .delete()
+          .then(() => {
+            window.location.reload();
+          })
+          .catch((error) => {
+            console.error("Error deleting document: ", error);
+            alert("Failed to delete expense. Please try again.");
+          });
+      }
 
-<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
-<script>
- // Your web app's Firebase configuration
- var firebaseConfig = {
-        apiKey: "AIzaSyByQw_ywcQrp-h1Y5NAu6EHpx5-w9EvrtI",
-    authDomain: "expense-mng.firebaseapp.com",
-    projectId: "expense-mng",
-    storageBucket: "expense-mng.appspot.com",
-    messagingSenderId: "524680470133",
-    appId: "1:524680470133:web:0d4db1c304666c1daa623c"
-   };
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-</script>
+      function editExpense(id) {
+        $("#editExpenseModal").modal("show");
+        firebase
+          .firestore()
+          .collection("expenseDetails")
+          .doc(id)
+          .get()
+          .then((res) => {
+            if (res.exists) {
+              document.getElementById("expense-item").value =
+                res.data().expenseTextDetails;
+              document.getElementById("price").value = res.data().expensePrice;
+              document.getElementById("id").value = id;
+            } else {
+              console.log("No such document!");
+              alert("Expense not found.");
+              hideModal();
+            }
+          })
+          .catch((error) => {
+            console.error("Error getting document for edit: ", error);
+            alert("Failed to load expense for editing. Please try again.");
+            hideModal();
+          });
+      }
 
+      function updateBtn(e) {
+        e.preventDefault();
+        var id = document.getElementById("id").value;
+        var item = document.getElementById("expense-item").value;
+        var price = document.getElementById("price").value;
 
-<!-- Add Firebase products that you want to use -->
-<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
-<script src="./js/dashboard-script.js"></script>
+        if (!item || !price || isNaN(price) || parseFloat(price) <= 0) {
+          alert("Please enter valid expense item and a positive price.");
+          return;
+        }
 
+        firebase
+          .firestore()
+          .collection("expenseDetails")
+          .doc(id)
+          .update({
+            expenseTextDetails: item,
+            expensePrice: parseFloat(price),
+          })
+          .then(() => {
+            hideModal();
+            window.location.reload();
+          })
+          .catch((error) => {
+            console.error("Error updating document: ", error);
+            alert("Failed to update expense. Please try again.");
+          });
+      }
 
-</body>
+      function hideModal() {
+        $("#editExpenseModal").modal("hide");
+      }
+
+      function genReport() {
+        // Note: jsPDF with fromHTML is deprecated and has limitations.
+        // For better results, consider libraries like jsPDF-AutoTable.
+        const pdf = new jsPDF("p", "pt", "letter");
+        const source = document.getElementById("expense-table");
+        const userName = document.getElementById("userName").innerText;
+        const balance = document.getElementById("balance").innerText;
+        const reportDate = new Date().toLocaleDateString("en-US");
+
+        // Simple text header
+        pdf.setFontSize(20);
+        pdf.text("Expense Report", 40, 40);
+        pdf.setFontSize(12);
+        pdf.text(`User: ${userName}`, 40, 60);
+        pdf.text(`Current Balance: ${balance}`, 40, 75);
+        pdf.text(`Date: ${reportDate}`, 40, 90);
+
+        // Use a more robust method for tables if possible
+        pdf.fromHTML(
+          source,
+          40, // x coord
+          110, // y coord
+          {
+            width: 522, // max width of content
+          },
+          function (dispose) {
+            pdf.save(`Expense_Report_${userName}.pdf`);
+          }
+        );
+      }
+    </script>
+  </body>
 </html>
